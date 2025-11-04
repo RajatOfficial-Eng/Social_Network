@@ -1,0 +1,201 @@
+/* 🌐 GLOBAL STYLES */
+body {
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    min-height: 100vh;
+}
+
+/* 🌟 HEADER */
+header {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    color: #fff;
+    padding: 25px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 1s ease;
+}
+
+.logo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 2px solid rgba(255,255,255,0.5);
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+}
+
+header h1 {
+    font-size: 2rem;
+    margin: 5px 0;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.slogan {
+    font-style: italic;
+    font-weight: 500;
+    color: #FFD700;
+    font-size: 1.1rem;
+}
+
+/* 🧭 CONTAINER */
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 85%;
+    max-width: 900px;
+    margin: 40px auto;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    animation: fadeUp 1s ease;
+}
+
+/* 📋 SECTIONS */
+section {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+}
+
+section h2 {
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+/* ✍️ INPUTS */
+input[type="text"] {
+    padding: 10px 15px;
+    margin: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: 0.3s;
+    font-size: 1rem;
+    width: 220px;
+}
+input[type="text"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 6px rgba(0,123,255,0.4);
+    outline: none;
+}
+
+/* 🔘 BUTTONS */
+button {
+    background: linear-gradient(45deg, #007bff, #00c6ff);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(45deg, #00c6ff, #007bff);
+    box-shadow: 0 4px 10px rgba(0,123,255,0.3);
+}
+
+/* 💬 OUTPUT AREA */
+#output {
+    background: #f8f8f8;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 25px;
+    text-align: left;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    min-height: 60px;
+    transition: all 0.4s ease;
+}
+
+/* ✅ SUCCESS / ❌ ERROR / ℹ️ INFO STATES */
+#output.success {
+    background-color: #e8f8ef;
+    border: 2px solid #28a745;
+    color: #155724;
+}
+#output.error {
+    background-color: #fdecea;
+    border: 2px solid #dc3545;
+    color: #721c24;
+}
+#output.info {
+    background-color: #e7f1ff;
+    border: 2px solid #007bff;
+    color: #004085;
+}
+
+/* ✨ TOAST NOTIFICATIONS */
+#toastContainer {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.toast {
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 16px;
+    color: white;
+    min-width: 250px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    animation: slideIn 0.6s ease, fadeOut 1s ease 4.5s forwards;
+    opacity: 0.95;
+}
+.toast.success { background: linear-gradient(45deg, #28a745, #218838); }
+.toast.error { background: linear-gradient(45deg, #dc3545, #c82333); }
+.toast.info { background: linear-gradient(45deg, #007bff, #0069d9); }
+
+/* 🌈 FOOTER */
+footer {
+    color: white;
+    font-size: 0.9rem;
+    margin-top: 20px;
+    padding: 15px 0;
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(5px);
+}
+
+/* 🪄 ANIMATIONS */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(100%); }
+    to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(100%); }
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 600px) {
+    input[type="text"] {
+        width: 90%;
+    }
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+    header h1 {
+        font-size: 1.6rem;
+    }
+}

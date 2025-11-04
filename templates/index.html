@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Social Network</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <header>
+    <img src="{{ url_for('static', filename='logo.png') }}" class="logo" alt="Logo">
+    <h1>Mini Social Network</h1>
+    <p class="slogan">Connect. Share. Inspire.</p>
+  </header>
+
+  <div class="container">
+    <section>
+      <h2>Add User</h2>
+      <input type="text" id="addUserName" placeholder="Enter new user name">
+      <button onclick="addUser()">Add User</button>
+    </section>
+
+    <section>
+      <h2>Add Friendship</h2>
+      <input type="text" id="friendUser1" placeholder="User 1">
+      <input type="text" id="friendUser2" placeholder="User 2">
+      <button onclick="addFriend()">Add Friendship</button>
+    </section>
+
+    <section>
+      <h2>Show Friends</h2>
+      <input type="text" id="showUserName" placeholder="User name">
+      <button onclick="showFriends()">Show</button>
+    </section>
+
+    <section>
+      <h2>Find Shortest Path</h2>
+      <input type="text" id="pathStart" placeholder="Start user">
+      <input type="text" id="pathEnd" placeholder="End user">
+      <button onclick="findPath()">Find Path</button>
+    </section>
+
+    <section>
+      <h2>Recommend Friends</h2>
+      <input type="text" id="recommendUser" placeholder="User name">
+      <button onclick="recommendFriends()">Recommend</button>
+    </section>
+
+    <section>
+      <h2>Remove User</h2>
+      <input type="text" id="removeUserName" placeholder="User name">
+      <button onclick="removeUser()">Remove User</button>
+    </section>
+
+    <section>
+      <h2>Remove Friendship</h2>
+      <input type="text" id="removeUser1" placeholder="User 1">
+      <input type="text" id="removeUser2" placeholder="User 2">
+      <button onclick="removeFriend()">Remove Friend</button>
+    </section>
+
+    <div id="output" class="info">Result will appear here...</div>
+  </div>
+
+  <div id="toastContainer"></div>
+
+  <footer>© 2025 Mini Social Network | Made with ❤️ by Rajat</footer>
+
+  <script>
+    // Function to show notifications
+    function showToast(message, type = "info") {
+      const toast = document.createElement("div");
+      toast.className = `toast ${type}`;
+      toast.textContent = message;
+      document.getElementById("toastContainer").appendChild(toast);
+      setTimeout(() => toast.remove(), 5000);
+    }
+
+    // Helper to call backend
+    async function sendRequest(endpoint, data) {
+      try {
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        document.getElementById("output").textContent = result.result || "Done!";
+        if (result.result?.toLowerCase().includes("exists") || result.result?.toLowerCase().includes("not found")) {
+          showToast(result.result, "error");
+        } else {
+          showToast(result.result, "success");
+        }
+      } catch (err) {
+        showToast("⚠️ Connection Error!", "error");
+      }
+    }
+
+    function addUser() {
+      const name = document.getElementById("addUserName").value.trim();
+      if (name) sendRequest("/add_user", { name });
+      else showToast("Please enter a name!", "error");
+    }
+
+    function addFriend() {
+      const user1 = document.getElementById("friendUser1").value.trim();
+      const user2 = document.getElementById("friendUser2").value.trim();
+      if (user1 && user2) sendRequest("/add_friend", { user1, user2 });
+      else showToast("Enter both names!", "error");
+    }
+
+    function showFriends() {
+      const name = document.getElementById("showUserName").value.trim();
+      if (name) sendRequest("/show_friends", { name });
+      else showToast("Enter a username!", "error");
+    }
+
+    function findPath() {
+      const start = document.getElementById("pathStart").value.trim();
+      const end = document.getElementById("pathEnd").value.trim();
+      if (start && end) sendRequest("/find_path", { start, end });
+      else showToast("Enter both users!", "error");
+    }
+
+    function recommendFriends() {
+      const name = document.getElementById("recommendUser").value.trim();
+      if (name) sendRequest("/recommend", { name });
+      else showToast("Enter username!", "error");
+    }
+
+    function removeUser() {
+      const name = document.getElementById("removeUserName").value.trim();
+      if (name) sendRequest("/remove_user", { name });
+      else showToast("Enter a user to remove!", "error");
+    }
+
+    function removeFriend() {
+      const user1 = document.getElementById("removeUser1").value.trim();
+      const user2 = document.getElementById("removeUser2").value.trim();
+      if (user1 && user2) sendRequest("/remove_friend", { user1, user2 });
+      else showToast("Enter both usernames!", "error");
+    }
+  </script>
+
+</body>
+</html>
