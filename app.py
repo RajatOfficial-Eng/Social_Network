@@ -7,7 +7,8 @@ app = Flask(__name__)
 
 # --- Run the compiled C++ program ---
 def run_cpp_command(args):
-    exe_path = os.path.join(os.getcwd(), "social.exe")
+    exe_name = "social" if os.name != "nt" else "social.exe"
+    exe_path = os.path.join(os.getcwd(), exe_name)
     if not os.path.exists(exe_path):
         return "⚠️ Error: social.exe not found. Please compile your C++ file first."
     try:
